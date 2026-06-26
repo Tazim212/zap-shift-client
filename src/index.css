@@ -8,4 +8,5 @@ themes: light --default;
   default: true; 
   --color-primary: #ACC857;
   --color-secondary: #03373D;
+  --color-info: #CAEB66;
 }

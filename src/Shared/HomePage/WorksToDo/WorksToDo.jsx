@@ -19,6 +19,7 @@ const WorksToDo = () => {
                         <p>From personal packages to business shipments — we deliver on time, every time.</p>
                     </div>
                 </div>
+
                 <div className="card bg-gray-300 w-61 shadow-lg rounded-xl">
                     <figure className="px-10 pt-10">
                         <img
@@ -31,6 +32,7 @@ const WorksToDo = () => {
                         <p>From personal packages to business shipments — we deliver on time, every time.</p>
                     </div>
                 </div>
+
                 <div className="card bg-gray-300 w-61 shadow-lg rounded-xl">
                     <figure className="px-10 pt-10">
                         <img
@@ -43,6 +45,7 @@ const WorksToDo = () => {
                         <p>From personal packages to business shipments — we deliver on time, every time.</p>
                     </div>
                 </div>
+                
                 <div className="card bg-gray-300 w-61 shadow-lg rounded-xl">
                     <figure className="px-10 pt-10">
                         <img
