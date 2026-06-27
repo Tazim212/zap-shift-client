@@ -1,14 +1,15 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Logo from "../../Components/Logo/Logo";
 
 const Navbar = () => {
     const links = <>
         <li><NavLink>Services</NavLink></li>
-        <li><NavLink>Coverage</NavLink></li>
+        <li><NavLink to="/coverage">Coverage</NavLink></li>
         <li><NavLink>About Us</NavLink></li>
         <li><NavLink>Pricing</NavLink></li>
         <li><NavLink>Be A Rider</NavLink></li>
     </>
+
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -22,9 +23,11 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">
-                    <Logo></Logo>
-                </a>
+                <Link to="/">
+                    <span className=" text-xl">
+                        <Logo></Logo>
+                    </span>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
