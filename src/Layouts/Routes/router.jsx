@@ -3,6 +3,9 @@ import Home from "../../Shared/HomePage/Home/Home";
 import Layout from "../Layout/Layout";
 import Coverage from "../../Pages/Coverage/Coverage";
 import AboutUs from "../../Pages/AboutUs/AboutUs";
+import AuthLayout from "../AuthLayout/AuthLayout";
+import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Register/Register";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +24,20 @@ export const router = createBrowserRouter([
             {
                 path: "/about",
                 Component: AboutUs
+            }
+        ]
+    },
+    {
+        path: "/",
+        Component: AuthLayout,
+        children: [
+            {
+                path: "/login",
+                Component: Login
+            },
+            {
+                path: "/register",
+                Component: Register
             }
         ]
     }
