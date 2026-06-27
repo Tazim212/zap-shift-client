@@ -7,5 +7,5 @@ import { router } from './Layouts/Routes/router.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router}></RouterProvider>
-  </StrictMode>,
+  </StrictMode>
 )
