@@ -36,11 +36,9 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <Link to="/">
                     <span className="text-xl">
                         <Logo></Logo>
                     </span>
-                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -48,7 +46,8 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <p className="text-gray-950 pr-2">{user?.email}</p>
+                {/* <p className="text-gray-950 pr-2">{user?.email}</p> */}
+                <img src={user?.photoURL} className="h-12 w-12 rounded-full mr-3" alt="" />
                 {
                     user ? 
                     <button onClick={signOut} className="btn btn-info">Log Out</button>

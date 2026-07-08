@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -10,11 +11,15 @@ const Login = () => {
     const { signedUser } = useAuth()
     const [show, setShow] = useState(false)
 
+    const location = useLocation()
+    const navigate = useNavigate()
+
     const handleSignIn = (data) => {
-        // console.log(data.email, data.password)
         signedUser(data.email, data.password)
         .then(res =>{
-            console.log(res.user)
+            // console.log(res.user)
+            Swal("Logged In successfully")
+            navigate(location?.state || "/")
         })
         .catch(err =>{
             console.log(err)

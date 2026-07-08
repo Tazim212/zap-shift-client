@@ -12,7 +12,6 @@ const Reviews = () => {
 
     const reviews = use(reviewData)
 
-    console.log(reviews)
     return (
         <div className='my-7'>
             <div className='py-7 w-2/3 md:w-1/2 mx-auto'>

@@ -18,7 +18,7 @@ const Partners = () => {
         <div className='my-12'>
             <h1 className='text-center text-secondary font-bold text-xl py-5'>Our Teams whom we have served</h1>
             <Swiper
-                slidesPerView={4}
+                slidesPerView={3}
                 centeredSlides={true}
                 spaceBetween={30}
                 grabCursor={true}
