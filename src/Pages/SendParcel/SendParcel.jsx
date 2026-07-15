@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm()
     const [centers, setCenters] = useState([])
-
+    const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
-    const senderRegion = watch("SenderRegion")
-    const receiverRegion = watch("ReceiverRegion")
+    const senderRegion = watch("senderRegion")
+    const receiverRegion = watch("receiverRegion")
 
     useEffect(() => {
         axiosSecure.get("/servicecenter")
@@ -28,8 +30,55 @@ const SendParcel = () => {
     }
 
     const handleParcel = (data) => {
-        console.log(data)
+
+        const isDocument = data.parcelType === "document"
+        const isSameDistrict = data.senderDistrict === data.receiverDistrict
+        const weights = parseFloat(data.parcelWeight)
+
+        let costs = 0
+
+        if (isDocument) {
+            costs = isSameDistrict ? 60 : 80
+        }
+        else {
+            if (weights <= 3) {
+                costs = isSameDistrict ? 110 : 150
+            }
+            else {
+                const extraWeight = weights - 3;
+                const minCharge = isSameDistrict ? 110 : 150;
+                const extraCharge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40;
+                costs = minCharge + extraCharge
+            }
+        }
+
+        Swal.fire({
+            title: "Agree with the costs?",
+            text: `Your costing will be ${costs} Taka`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, I agree"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.post('/sendparcel', data)
+                    .then(res => {
+                        console.log(res.data)
+                        reset()
+                    })
+            }
+            Swal.fire({
+                // title: "Yes I Agree",
+                text: "Your order has been placed.",
+                icon: "success"
+            });
+        });
+
+        // console.log(parcels)
     }
+
+
     return (
         <div className="my-5">
             <div className="my-7 space-y-4">
@@ -42,23 +91,23 @@ const SendParcel = () => {
             <form onSubmit={handleSubmit(handleParcel)}>
                 <div className="space-x-5 my-3">
                     <label>
-                        <input type="radio" className="radio mr-2" {...register("ParcelType")} value="document" />
+                        <input type="radio" className="radio mr-2" {...register("parcelType")} value="document" />
                         Documents
                     </label>
 
                     <label>
-                        <input type="radio" className="radio mr-2" {...register("ParcelType")} value="non-document" />
+                        <input type="radio" className="radio mr-2" {...register("parcelType")} value="non-document" />
                         Non-Documents
                     </label>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full mt-3">
                         <div className="flex flex-col">
                             <label className="label " htmlFor="name">Parcel Name</label>
-                            <input type="text" className="input" {...register("ParcelName")} placeholder="Parcel Name" />
+                            <input type="text" className="input" {...register("parcelName")} placeholder="Parcel Name" />
                         </div>
                         <div className="flex flex-col">
                             <label className="label " htmlFor="name">Parcel Weight</label>
-                            <input type="number" className="input" {...register("ParcelWeight")} placeholder="Weight" />
+                            <input type="number" className="input" {...register("parcelWeight")} placeholder="Weight" />
                         </div>
                     </div>
                 </div>
@@ -69,20 +118,25 @@ const SendParcel = () => {
                     {/* Sender Details */}
                     <div className="space-y-2">
                         <h2 className="text-2xl font-semibold">Sender Details</h2>
+
                         <div className="flex flex-col">
                             <label className="label pb-2" htmlFor="name">Sender Name</label>
-                            <input type="text" className="input" {...register("SenderName")} placeholder="Sender Name" />
+                            <input type="text" defaultValue={user?.displayName} className="input" {...register("senderName")} placeholder="Sender Name" />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="label pb-2" htmlFor="name">Sender Email</label>
+                            <input type="email" defaultValue={user?.email} className="input" {...register("senderEmail")} placeholder="Sender Email" />
                         </div>
 
                         <div className="flex flex-col">
                             <label className="label pb-2" htmlFor="name">Sender Phone No.</label>
-                            <input type="number" className="input" {...register("SenderPhoneNumber")} placeholder="Phone No." />
+                            <input type="number" className="input" {...register("senderPhoneNumber")} placeholder="Phone No." />
                         </div>
 
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend">Sender Region</legend>
-                            <select defaultValue="Pick a District" {...register("SenderRegion")} className="select">
-                                <option disabled={true}>Pick a district</option>
+                            <select defaultValue="Pick a District" {...register("senderRegion")} className="select">
+                                <option>Pick a region</option>
                                 {
                                     regions.map((r, i) => <option key={i}>{r}</option>)
                                 }
@@ -91,8 +145,8 @@ const SendParcel = () => {
 
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend">Sender District</legend>
-                            <select defaultValue="Pick a District" {...register("SenderDistrict")} className="select">
-                                <option disabled={true}>Pick a district</option>
+                            <select defaultValue="Pick a District" {...register("senderDistrict")} className="select">
+                                <option>Pick a district</option>
                                 {
                                     districtByRegion(senderRegion).map((d, i) => <option key={i}>{d}</option>)
                                 }
@@ -101,7 +155,7 @@ const SendParcel = () => {
 
                         <div className="flex flex-col">
                             <label className="label pb-2" htmlFor="name">Sender Address</label>
-                            <input type="text" className="input" {...register("SenderAddress")} placeholder="Sender Address" />
+                            <input type="text" className="input" {...register("senderAddress")} placeholder="Sender Address" />
                         </div>
                     </div>
 
@@ -109,20 +163,25 @@ const SendParcel = () => {
                     <div>
                         <div className="space-y-2">
                             <h2 className="text-2xl font-semibold">Receiver Details</h2>
+
                             <div className="flex flex-col">
                                 <label className="label pb-2" htmlFor="name">Receiver Name</label>
-                                <input type="text" className="input" {...register("ReceiverName")} placeholder="Receiver Name" />
+                                <input type="text" className="input" {...register("receiverName")} placeholder="Receiver Name" />
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="label pb-2" htmlFor="name">Receiver Email</label>
+                                <input type="email" className="input" {...register("receiverEmail")} placeholder="Receiver Email" />
                             </div>
 
                             <div className="flex flex-col">
                                 <label className="label pb-2" htmlFor="name">Receiver Phone No.</label>
-                                <input type="number" className="input" {...register("ReceiverPhoneNumber")} placeholder="Phone No." />
+                                <input type="number" className="input" {...register("receiverPhoneNumber")} placeholder="Phone No." />
                             </div>
 
                             <fieldset className="fieldset">
-                                <legend className="fieldset-legend">Sender Region</legend>
-                                <select defaultValue="Pick a District" {...register("ReceiverRegion")} className="select">
-                                    <option disabled={true}>Pick a district</option>
+                                <legend className="fieldset-legend">Receiver Region</legend>
+                                <select defaultValue="Pick a District" {...register("receiverRegion")} className="select">
+                                    <option>Pick a region</option>
                                     {
                                         regions.map((r, i) => <option key={i}>{r}</option>)
                                     }
@@ -130,9 +189,9 @@ const SendParcel = () => {
                             </fieldset>
 
                             <fieldset className="fieldset">
-                                <legend className="fieldset-legend">Sender District</legend>
-                                <select defaultValue="Pick a District" {...register("ReceiverDistrict")} className="select">
-                                    <option disabled={true}>Pick a district</option>
+                                <legend className="fieldset-legend">Receiver District</legend>
+                                <select defaultValue="Pick a District" {...register("receiverDistrict")} className="select">
+                                    <option>Pick a district</option>
                                     {
                                         districtByRegion(receiverRegion).map((d, i) => <option key={i}>{d}</option>)
                                     }
@@ -141,7 +200,7 @@ const SendParcel = () => {
 
                             <div className="flex flex-col">
                                 <label className="label pb-2" htmlFor="name">Receiver Address</label>
-                                <input type="text" className="input" {...register("ReceiverAddress")} placeholder="Receiver Address" />
+                                <input type="text" className="input" {...register("receiverAddress")} placeholder="Receiver Address" />
                             </div>
                         </div>
                     </div>
