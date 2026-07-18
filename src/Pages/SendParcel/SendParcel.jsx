@@ -57,7 +57,7 @@ const SendParcel = () => {
         Swal.fire({
             title: "Agree with the costs?",
             text: `Your costing will be ${costs} Taka`,
-            icon: "warning",
+            icon: "success",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
@@ -67,13 +67,13 @@ const SendParcel = () => {
                 axiosSecure.post('/sendparcel', data)
                     .then(res => {
                         // console.log(res.data)
+                        Swal.fire({
+                            text: "Your order has been placed.",
+                            icon: "success"
+                        });
                         reset()
                     })
             }
-            Swal.fire({
-                text: "Your order has been placed.",
-                icon: "success"
-            });
         });
 
     }
@@ -175,7 +175,7 @@ const SendParcel = () => {
 
                             <div className="flex flex-col">
                                 <label className="label pb-2" htmlFor="name">Receiver Phone No.</label>
-                                <input type="tel" className="input" {...register("receiverPhoneNumber"), {minLength: 11},{ maxLength: 11 }} placeholder="Phone No." />
+                                <input type="tel" className="input" {...register("receiverPhoneNumber"), { minLength: 11 }, { maxLength: 11 }} placeholder="Phone No." />
                                 {"receiverPhoneNumber" === 11 && <p className="text-red-500">Number is not valid</p>}
                             </div>
 
