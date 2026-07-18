@@ -8,7 +8,7 @@ const SendParcel = () => {
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm()
     const [centers, setCenters] = useState([])
-    const {user} = useAuth()
+    const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const senderRegion = watch("senderRegion")
     const receiverRegion = watch("receiverRegion")
@@ -52,6 +52,8 @@ const SendParcel = () => {
             }
         }
 
+        data.costs = costs
+
         Swal.fire({
             title: "Agree with the costs?",
             text: `Your costing will be ${costs} Taka`,
@@ -64,20 +66,17 @@ const SendParcel = () => {
             if (result.isConfirmed) {
                 axiosSecure.post('/sendparcel', data)
                     .then(res => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         reset()
                     })
             }
             Swal.fire({
-                // title: "Yes I Agree",
                 text: "Your order has been placed.",
                 icon: "success"
             });
         });
 
-        // console.log(parcels)
     }
-
 
     return (
         <div className="my-5">
@@ -130,7 +129,8 @@ const SendParcel = () => {
 
                         <div className="flex flex-col">
                             <label className="label pb-2" htmlFor="name">Sender Phone No.</label>
-                            <input type="number" className="input" {...register("senderPhoneNumber")} placeholder="Phone No." />
+                            <input type="tel" className="input" {...register("senderPhoneNumber"), { maxLength: 11, required: true }} placeholder="Phone No." />
+                            {errors.senderPhoneNumber && <p className="text-red-500">Number is not valid</p>}
                         </div>
 
                         <fieldset className="fieldset">
@@ -175,7 +175,8 @@ const SendParcel = () => {
 
                             <div className="flex flex-col">
                                 <label className="label pb-2" htmlFor="name">Receiver Phone No.</label>
-                                <input type="number" className="input" {...register("receiverPhoneNumber")} placeholder="Phone No." />
+                                <input type="tel" className="input" {...register("receiverPhoneNumber"), {minLength: 11},{ maxLength: 11 }} placeholder="Phone No." />
+                                {"receiverPhoneNumber" === 11 && <p className="text-red-500">Number is not valid</p>}
                             </div>
 
                             <fieldset className="fieldset">
