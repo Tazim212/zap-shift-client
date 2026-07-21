@@ -41,6 +41,7 @@ const MyParcels = () => {
                     })
         });
     }
+
     return (
         <div>
             Hello dashboards {parcels.length}
@@ -68,7 +69,15 @@ const MyParcels = () => {
                                     <td>{parcel.parcelWeight}</td>
                                     <td>{parcel.createdAt}</td>
                                     <td>{parcel.costs}</td>
-                                    <td>Pending</td>
+                                    <td>
+                                        {
+                                            status === "paid"
+                                                ?
+                                                "paid"
+                                                :
+                                                <Link to={`/dashboard/payment/${parcel._id}`}><button className="btn btn-primary text-black">Pay</button></Link>
+                                        }
+                                    </td>
                                     <td className="space-x-2">
                                         <Link className="btn btn-soft btn-success">Edit</Link>
                                         <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-soft btn-error">Delete</button>
