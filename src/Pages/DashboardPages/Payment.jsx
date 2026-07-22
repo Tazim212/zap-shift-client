@@ -28,8 +28,9 @@ const Payment = () =>{
         }
 
     return(
-        <div>
-            <button onClick={handlePayment} className="btn btn-primary text-black">Pay</button>
+        <div className="text-center mt-36 space-y-3">
+            <h1 className="font-bold text-2xl">Parcel Name: {parcel.parcelName}</h1>
+            <button onClick={handlePayment} className="btn btn-primary text-black w-28">Pay</button>
         </div>
     )
 }
