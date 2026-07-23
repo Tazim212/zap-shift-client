@@ -22,7 +22,7 @@ const Payment = () =>{
                 senderEmail: parcel.senderEmail
             }
             const res = await axiosSecure.post('/create-checkout-session', info)
-            console.log(res.data)
+            // console.log(res.data)
             window.location.assign(res.data.url)
             // console.log(info)
         }

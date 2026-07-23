@@ -45,11 +45,12 @@ const MyParcels = () => {
     return (
         <div>
             Hello dashboards {parcels.length}
+            <h2 className="text-4xl font-bold my-4 mx-12">My Parcels</h2>
             <div className="overflow-x-auto">
-                <table className="table">
+                <table className="table w-5xl mx-10">
                     {/* head */}
                     <thead>
-                        <tr>
+                        <tr className="bg-gray-700 text-gray-100">
                             <th>#</th>
                             <th>Name</th>
                             <th>Weight</th>

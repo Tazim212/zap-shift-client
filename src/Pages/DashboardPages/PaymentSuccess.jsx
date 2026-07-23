@@ -21,6 +21,7 @@ const PaymentSuccess = () => {
                 })
         }
     }, [session_id])
+    
     return (
         <div>
             <h2 className="text-4xl text-center mt-36">Payment done Successfully</h2>
