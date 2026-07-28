@@ -1,19 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const PaymentHistory = () => {
-
+    const {user} = useAuth();
     const axiosSecure = useAxiosSecure()
 
+    // specific user add krte hobe remember
     const {data: payments = []} = useQuery({
-        queryKey: ["payment"],
+        queryKey: ["payment", user?.email],
         queryFn: async() =>{
-            const res = await axiosSecure.get("/payments",payments)
+            const res = await axiosSecure.get(`/payments?email=${user?.email}`)
             return res.data;
         }
     })
 
-    console.log(payments)
     return (
         <div>
             <h2 className="text-4xl font-bold my-3 px-12">Payment History</h2>
@@ -37,7 +38,7 @@ const PaymentHistory = () => {
                             <td>{payment.parcelName}</td>
                             <td>{payment.customerEmail}</td>
                             <td>{payment.trackingId}</td>
-                            <td>{payment.amount}</td>
+                            <td>$ {payment.amount}</td>
                         </tr>
                         )
                        }

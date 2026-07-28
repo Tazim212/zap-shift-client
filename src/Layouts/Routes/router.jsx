@@ -25,11 +25,6 @@ export const router = createBrowserRouter([
                 Component: Home
             },
             {
-                path: "/coverage",
-                Component: Coverage,
-                loader: () => fetch("/warehouses.json").then(res => res.json())
-            },
-            {
                 path: "/about",
                 Component: AboutUs
             },
@@ -64,6 +59,11 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/payment/:id",
                 Component: Payment
+            },
+            {
+                path: "/dashboard/coverage",
+                Component: Coverage,
+                loader: () => fetch("/warehouses.json").then(res => res.json())
             },
             {
                 path: "/dashboard/payment-success",

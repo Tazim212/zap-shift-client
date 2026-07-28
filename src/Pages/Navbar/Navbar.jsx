@@ -7,7 +7,6 @@ const Navbar = () => {
     
     const links = <>
         <li><NavLink>Home</NavLink></li>
-        <li><NavLink to="/coverage">Coverage</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
         <li><NavLink to="/sendparcel">Send Parcel</NavLink></li>
         {
@@ -23,7 +22,7 @@ const Navbar = () => {
             console.log(res.user)
         })
         .catch(err =>{
-            console.log(err.message)
+            // console.log(err.message)
         })
     }
 

@@ -16,14 +16,14 @@ const Login = () => {
 
     const handleSignIn = (data) => {
         signedUser(data.email, data.password)
-        .then(res =>{
-            // console.log(res.user)
-            Swal("Logged In successfully")
-            navigate(location?.state || "/")
-        })
-        .catch(err =>{
-            console.log(err)
-        })
+            .then(res => {
+                // console.log(res.user)
+                Swal.fire("Logged In successfully")
+                navigate(location?.state || "/")
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
     return (
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">

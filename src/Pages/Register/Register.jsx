@@ -5,20 +5,21 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const { registerUser, updateUserProf} = useAuth()
+    const { registerUser, updateUserProf } = useAuth()
 
     const [show, setShow] = useState(false)
+    const axiosSecure = useAxiosSecure()
 
     const location = useLocation()
     const navigate = useNavigate()
 
     const handleREgister = (data) => {
-        // console.log(data)
         const profileImg = data.photo[0];
 
         registerUser(data.email, data.password)
@@ -29,23 +30,31 @@ const Register = () => {
                 const image_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
 
                 axios.post(image_api_url, formData)
-                .then(res =>{
+                    .then(res => {
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: res.data.data.url
+                        }
 
-                    const userProfile = {
-                        displayName: data.name,
-                        photoURL: res.data.data.url
-                    }
+                        updateUserProf(userProfile)
+                            .then(() => { })
+                            .catch(err => {
+                                console.log(err)
+                            })
 
-                    updateUserProf(userProfile)
-                    .then(() =>{
-                        // console.log("user updated successfully")
-                        Swal.fire("User Created Successfully")
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            image: res.data.data.url,
+                        }
+                        axiosSecure.post('/users', userInfo)
+                            .then((res) => {
+                                if (res.data.insertedId) {
+                                    Swal.fire("User Created Successfully")
+                                    navigate(location?.state || "/")
+                                }
+                            })
                     })
-                    .catch(err =>{
-                        console.log(err)
-                    })
-                    navigate(location?.state || "/")
-                })
             })
             .catch(err => {
                 console.log(err)
@@ -74,9 +83,9 @@ const Register = () => {
                         errors.password?.type === "pattern" && <p className="text-red-600">Password must have one uppercase & one number</p>
                     }
                     {
-                        show ? <span onClick={() =>setShow(false)} className="relative left-75 bottom-8 cursor-pointer"><FaEye></FaEye></span> 
-                        : 
-                        <span onClick={() =>setShow(true)} className="relative left-75 bottom-8 cursor-pointer"><FaEyeSlash></FaEyeSlash></span>
+                        show ? <span onClick={() => setShow(false)} className="relative left-75 bottom-8 cursor-pointer"><FaEye></FaEye></span>
+                            :
+                            <span onClick={() => setShow(true)} className="relative left-75 bottom-8 cursor-pointer"><FaEyeSlash></FaEyeSlash></span>
                     }
                     <div><a className="link link-hover">Forgot password?</a></div>
                     <button className="btn btn-neutral mt-4">Register</button>
