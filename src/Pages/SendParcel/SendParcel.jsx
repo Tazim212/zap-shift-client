@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const SendParcel = () => {
 
@@ -80,6 +81,9 @@ const SendParcel = () => {
 
     return (
         <div className="my-5">
+            <Helmet>
+                <title>Send Parcel</title>
+            </Helmet>
             <div className="my-7 space-y-4">
                 <h1 className="text-4xl font-bold">Send A Percel</h1>
                 <p className="text-xl font-semibold">Enter Your Parcel Details</p>

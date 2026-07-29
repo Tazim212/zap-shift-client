@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const PaymentHistory = () => {
     const {user} = useAuth();
@@ -17,6 +18,9 @@ const PaymentHistory = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Dashboard | Payment History</title>
+            </Helmet>
             <h2 className="text-4xl font-bold my-3 px-12">Payment History</h2>
             <div className="overflow-x-auto">
                 <table className="table w-5xl mx-10 my-4">

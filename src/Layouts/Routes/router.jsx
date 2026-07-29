@@ -14,6 +14,8 @@ import PaymentSuccess from "../../Pages/DashboardPages/PaymentSuccess";
 import Payment from "../../Pages/DashboardPages/Payment";
 import PaymentCancel from "../../Pages/DashboardPages/PaymentCancel";
 import PaymentHistory from "../../Pages/DashboardPages/PaymentHistory";
+import Rider from "../../Pages/Rider/Rider";
+import ApproveRider from "../../Pages/DashboardPages/ApproveRider";
 
 export const router = createBrowserRouter([
     {
@@ -31,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: "/sendparcel",
                 element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>
+            },
+            {
+                path: "/rider",
+                element: <PrivateRoute><Rider></Rider></PrivateRoute>
             }
         ]
     },
@@ -76,6 +82,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/payment-history",
                 Component: PaymentHistory
+            },
+            {
+                path: "/dashboard/approved-riders",
+                Component: ApproveRider
             }
         ]
     }

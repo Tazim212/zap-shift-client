@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const MyParcels = () => {
 
@@ -44,7 +45,11 @@ const MyParcels = () => {
 
     return (
         <div>
-            Hello dashboards {parcels.length}
+            <Helmet>
+                <title>Dashboard | My parcels</title>
+            </Helmet>
+
+            <h2>Hello dashboards {parcels.length}</h2>
             <h2 className="text-4xl font-bold my-4 mx-12">My Parcels</h2>
             <div className="overflow-x-auto">
                 <table className="table w-5xl mx-10">

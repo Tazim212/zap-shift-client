@@ -1,11 +1,15 @@
+import { Helmet } from "react-helmet-async";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { IoLocationSharp } from "react-icons/io5";
-import { MdWorkHistory } from "react-icons/md";
+import { MdOutlineDirectionsBike, MdWorkHistory } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 
 const DashboardLayout = () => {
     return (
         <div className="drawer lg:drawer-open">
+            <Helmet>
+                <title>Dashboard</title>
+            </Helmet>
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 {/* Navbar */}
@@ -47,6 +51,14 @@ const DashboardLayout = () => {
                                 {/* Home icon */}
                                 <span className="text-xl my-1.5 inline-block"><MdWorkHistory /></span>
                                 <span className="is-drawer-close:hidden">Payment History</span>
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to="/dashboard/approved-riders" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approved Riders">
+                                {/* Home icon */}
+                                <span className="text-xl my-1.5 inline-block"><MdOutlineDirectionsBike /></span>
+                                <span className="is-drawer-close:hidden">Approved Riders</span>
                             </Link>
                         </li>
 

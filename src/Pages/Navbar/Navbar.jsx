@@ -3,27 +3,30 @@ import Logo from "../../Components/Logo/Logo";
 import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-    const {user, signOutUser} = useAuth()
-    
+    const { user, signOutUser } = useAuth()
+
     const links = <>
         <li><NavLink>Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
         <li><NavLink to="/sendparcel">Send Parcel</NavLink></li>
         {
-            user && <li><NavLink to="/dashboard">My Parcel</NavLink></li>
+            user &&
+            <>
+                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                <li><NavLink to="/rider">Be A Rider</NavLink></li>
+            </>
         }
         <li><NavLink>Pricing</NavLink></li>
-        <li><NavLink>Be A Rider</NavLink></li>
     </>
 
-    const signOut = () =>{
+    const signOut = () => {
         signOutUser()
-        .then(res =>{
-            console.log(res.user)
-        })
-        .catch(err =>{
-            // console.log(err.message)
-        })
+            .then(res => {
+                console.log(res.user)
+            })
+            .catch(err => {
+                // console.log(err.message)
+            })
     }
 
     return (
@@ -39,9 +42,9 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                    <span className="text-xl">
-                        <Logo></Logo>
-                    </span>
+                <span className="text-xl">
+                    <Logo></Logo>
+                </span>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -49,13 +52,17 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {/* <p className="text-gray-950 pr-2">{user?.email}</p> */}
-                <img src={user?.photoURL} className="h-12 w-12 rounded-full mr-3" alt="" />
                 {
-                    user ? 
-                    <button onClick={signOut} className="btn btn-info">Log Out</button>
-                    :
-                    <Link to="/login"><button className="btn btn-info">Log In</button></Link>
+                    user ?
+                        <img src={user?.photoURL} className="h-12 w-12 rounded-full mr-3" alt="" />
+                        :
+                        ""
+                }
+                {
+                    user ?
+                        <button onClick={signOut} className="btn btn-info">Log Out</button>
+                        :
+                        <Link to="/login"><button className="btn btn-info">Log In</button></Link>
                 }
             </div>
         </div>
