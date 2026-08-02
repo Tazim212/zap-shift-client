@@ -70,7 +70,10 @@ const Rider = () => {
                             type="text"
                             maxLength={15}
                             {...register("license", { required: true, pattern: /^[A-Za-z]{2}[0-9]{13}$/ })}
-                            className="input" placeholder="Driving License Number" />
+                            className="input"
+                            placeholder="Driving License Number"
+                        />
+
                         {errors.license && (<p className="text-red-700 py-2">ফরম্যাট ভুল! (যেমন: DK1234567890123)</p>)}
 
                         <fieldset className="fieldset">
@@ -95,14 +98,15 @@ const Rider = () => {
 
                         <label className="label">NID No.</label>
                         <input
-                            type="number"
+                            type="text"
                             minLength={10}
-                            maxLength={10}
-                            {...register("nid", { required: true })}
+                            maxLength={17}
+                            {...register("nid", { required: true, pattern: /^(\d{10}|\d{17})$/ })}
                             className="input"
                             placeholder="Enter NID No."
                         />
-                        {errors.nid && (<p className="text-red-700 py-2">National Id should be 10 digits or 17 digits</p>)}
+
+                        {errors.nid && (<p className="text-red-700 py-2">National Id should be 10 or 17 digits</p>)}
 
                         <label className="label">Phone Number</label>
                         <input

@@ -16,6 +16,9 @@ import PaymentCancel from "../../Pages/DashboardPages/PaymentCancel";
 import PaymentHistory from "../../Pages/DashboardPages/PaymentHistory";
 import Rider from "../../Pages/Rider/Rider";
 import ApproveRider from "../../Pages/DashboardPages/ApproveRider";
+import UserManagement from "../../Pages/DashboardPages/UserManagement";
+import AdminRoute from "../../Components/AdminRoute/AdminRoute";
+import Forbidden from "../../Components/Forbidden/Forbidden";
 
 export const router = createBrowserRouter([
     {
@@ -84,8 +87,16 @@ export const router = createBrowserRouter([
                 Component: PaymentHistory
             },
             {
+                path: "/dashboard/user-management",
+                element: <AdminRoute><UserManagement></UserManagement></AdminRoute>
+            },
+            {
                 path: "/dashboard/approved-riders",
-                Component: ApproveRider
+                element: <AdminRoute><ApproveRider></ApproveRider></AdminRoute>
+            },
+            {
+                path: "/dashboard/forbidden-access",
+                Component: Forbidden
             }
         ]
     }

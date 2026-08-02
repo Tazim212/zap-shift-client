@@ -1,10 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { FaUsers } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdOutlineDirectionsBike, MdWorkHistory } from "react-icons/md";
 import { Link, Outlet } from "react-router";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+    const { role } = useRole()
+
     return (
         <div className="drawer lg:drawer-open">
             <Helmet>
@@ -54,13 +58,24 @@ const DashboardLayout = () => {
                             </Link>
                         </li>
 
-                        <li>
-                            <Link to="/dashboard/approved-riders" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approved Riders">
-                                {/* Home icon */}
-                                <span className="text-xl my-1.5 inline-block"><MdOutlineDirectionsBike /></span>
-                                <span className="is-drawer-close:hidden">Approved Riders</span>
-                            </Link>
-                        </li>
+                        {
+                            role === "admin" && <>
+                                <li>
+                                    <Link to="/dashboard/approved-riders" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approved Riders">
+                                        {/* Home icon */}
+                                        <span className="text-xl my-1.5 inline-block"><MdOutlineDirectionsBike /></span>
+                                        <span className="is-drawer-close:hidden">Approved Riders</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/dashboard/user-management" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="User Management">
+                                        {/* Home icon */}
+                                        <span className="text-xl my-1.5 inline-block"><FaUsers></FaUsers></span>
+                                        <span className="is-drawer-close:hidden">User Management</span>
+                                    </Link>
+                                </li>
+                            </> 
+                        }
 
                         <li>
                             <Link to="/dashboard/coverage" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Coverage Area">

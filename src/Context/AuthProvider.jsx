@@ -10,38 +10,39 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const registerUser = (email, password) =>{
+    const registerUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const signedUser = (email, password) =>{
+    const signedUser = (email, password) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    const handleGoogleSigned = () =>{
+    const handleGoogleSigned = () => {
         return signInWithPopup(auth, provider)
     }
-    const updateUserProf = (profile) =>{
+    const updateUserProf = (profile) => {
         return updateProfile(auth.currentUser, profile)
     }
 
-    const signOutUser = () =>{
+    const signOutUser = () => {
         setLoading(false)
         return signOut(auth)
     }
 
-    const passReset = (email) =>{
+    const passReset = (email) => {
         return sendPasswordResetEmail(auth, email)
     }
-    useEffect(() =>{
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) =>{
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
             setLoading(false)
         })
 
-        return () =>{
+        return () => {
             unSubscribe()
         }
     }, [])
