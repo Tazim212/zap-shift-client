@@ -10,17 +10,17 @@ import { useRef, useState } from "react";
 const ApproveRider = () => {
 
     const axiosSecure = useAxiosSecure()
-    const [selectedRider, setSelectedRider] = useState([])
-    const { user } = useAuth()
+    const [selectedRider, setSelectedRider] = useState(null)
     const riderRef = useRef()
 
     const { data: riders = [], refetch } = useQuery({
         queryKey: ["riders"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/riders")
+            const res = await axiosSecure.get(`/riders`)
             return res.data;
         }
     })
+
 
     const updateRiderInfo = (id, status) => {
         axiosSecure.patch(`/riders/${id}?status=${status}`)
@@ -57,7 +57,7 @@ const ApproveRider = () => {
         }).then((result) => {
             if (result.isConfirmed)
                 axiosSecure.delete(`/riders/${id}`)
-                    .then(res => {
+                    .then(() => {
                         refetch()
                         Swal.fire({
                             title: "Deleted!",
@@ -68,7 +68,7 @@ const ApproveRider = () => {
         });
     }
 
-    const riderModal = (rider) =>{
+    const riderModal = (rider) => {
         setSelectedRider(rider)
         riderRef.current.showModal()
     }
@@ -89,6 +89,7 @@ const ApproveRider = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>District</th>
+                            <th>WorkStatus</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -101,6 +102,7 @@ const ApproveRider = () => {
                                     <td>{rider.name}</td>
                                     <td>{rider.email}</td>
                                     <td>{rider.district}</td>
+                                    <td>{rider.workStatus}</td>
                                     <td className={`${rider.status === "Accepted" ? "text-green-500" : "text-red-600"}`}>{rider.status}</td>
                                     <td className="space-x-2">
                                         <button
@@ -129,7 +131,9 @@ const ApproveRider = () => {
                         }
 
                     </tbody>
+
                 </table>
+
 
                 <dialog ref={riderRef} className="modal">
                     <div className="modal-box bg-gray-500 opacity-90">
@@ -142,15 +146,15 @@ const ApproveRider = () => {
                             </figure>
                             <div className="card-body">
                                 <h2>
-                                    <span className="font-bold text-md">Applicant Name:</span> {selectedRider.name}
-                                    <div className="badge badge-secondary ms-5">ID:{selectedRider._id}</div>
+                                    <span className="font-bold text-md">Applicant Name:</span> {selectedRider?.name}
+                                    <div className="badge badge-secondary ms-5">ID:{selectedRider?._id}</div>
                                 </h2>
-                                <p><span className="font-bold text-md">License No: </span>{selectedRider.license}</p>
-                                <p><span className="font-bold text-md">Region: </span>{selectedRider.region}</p>
-                                <p><span className="font-bold text-md">District: </span>{selectedRider.district}</p>
-                                <p><span className="font-bold text-md">National ID: </span>{selectedRider.nid}</p>
-                                <p><span className="font-bold text-md">Phone No: </span>{selectedRider.phoneNumber}</p>
-                                <p><span className="font-bold text-md">Registration No: </span>{selectedRider.regNumber}</p>
+                                <p><span className="font-bold text-md">License No: </span>{selectedRider?.license}</p>
+                                <p><span className="font-bold text-md">Region: </span>{selectedRider?.region}</p>
+                                <p><span className="font-bold text-md">District: </span>{selectedRider?.district}</p>
+                                <p><span className="font-bold text-md">National ID: </span>{selectedRider?.nid}</p>
+                                <p><span className="font-bold text-md">Phone No: </span>{selectedRider?.phoneNumber}</p>
+                                <p><span className="font-bold text-md">Registration No: </span>{selectedRider?.regNumber}</p>
                             </div>
                         </div>
                         <div className="modal-action">

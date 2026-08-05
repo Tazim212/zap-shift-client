@@ -69,7 +69,7 @@ const SendParcel = () => {
                     .then(res => {
                         // console.log(res.data)
                         Swal.fire({
-                            text: "Your order has been placed.",
+                            text: "Your order has been placed. Go for payment",
                             icon: "success"
                         });
                         reset()

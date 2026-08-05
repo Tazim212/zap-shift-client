@@ -11,7 +11,6 @@ import SendParcel from "../../Pages/SendParcel/SendParcel";
 import DashboardLayout from "../DashboardLayout";
 import MyParcels from "../../Pages/DashboardPages/MyParcels";
 import PaymentSuccess from "../../Pages/DashboardPages/PaymentSuccess";
-import Payment from "../../Pages/DashboardPages/Payment";
 import PaymentCancel from "../../Pages/DashboardPages/PaymentCancel";
 import PaymentHistory from "../../Pages/DashboardPages/PaymentHistory";
 import Rider from "../../Pages/Rider/Rider";
@@ -19,6 +18,7 @@ import ApproveRider from "../../Pages/DashboardPages/ApproveRider";
 import UserManagement from "../../Pages/DashboardPages/UserManagement";
 import AdminRoute from "../../Components/AdminRoute/AdminRoute";
 import Forbidden from "../../Components/Forbidden/Forbidden";
+import AssignRider from "../../Pages/DashboardPages/AssignRider";
 
 export const router = createBrowserRouter([
     {
@@ -66,10 +66,6 @@ export const router = createBrowserRouter([
                 Component: MyParcels
             },
             {
-                path: "/dashboard/payment/:id",
-                Component: Payment
-            },
-            {
                 path: "/dashboard/coverage",
                 Component: Coverage,
                 loader: () => fetch("/warehouses.json").then(res => res.json())
@@ -93,6 +89,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/approved-riders",
                 element: <AdminRoute><ApproveRider></ApproveRider></AdminRoute>
+            },
+            {
+                path: "/dashboard/assign-rider",
+                element: <AdminRoute><AssignRider></AssignRider></AdminRoute>
             },
             {
                 path: "/dashboard/forbidden-access",

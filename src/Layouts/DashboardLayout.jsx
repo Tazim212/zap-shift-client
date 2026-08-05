@@ -5,6 +5,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { MdOutlineDirectionsBike, MdWorkHistory } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
+import { RiEBikeFill } from "react-icons/ri";
 
 const DashboardLayout = () => {
     const { role } = useRole()
@@ -72,6 +73,13 @@ const DashboardLayout = () => {
                                         {/* Home icon */}
                                         <span className="text-xl my-1.5 inline-block"><FaUsers></FaUsers></span>
                                         <span className="is-drawer-close:hidden">User Management</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/dashboard/assign-rider" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign-rider">
+                                        {/* Home icon */}
+                                        <span className="text-xl my-1.5 inline-block"><RiEBikeFill /></span>
+                                        <span className="is-drawer-close:hidden">Assign Rider</span>
                                     </Link>
                                 </li>
                             </> 
