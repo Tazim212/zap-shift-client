@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AssignRider = () => {
 
@@ -56,6 +57,9 @@ const AssignRider = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Dashboard || Assign Rider</title>
+            </Helmet>
             <h2>Parcels are: {parcels.length}</h2>
 
             <div className="overflow-x-auto">

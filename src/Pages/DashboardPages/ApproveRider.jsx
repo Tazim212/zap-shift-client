@@ -38,8 +38,12 @@ const ApproveRider = () => {
             })
     }
 
-    const handleAccept = (id) => {
-        updateRiderInfo(id, "Accepted")
+    const handleAccept = (id, email) => {
+        const roleInfo = { role: "rider" }
+        axiosSecure.patch(`/users/${email}/role`, roleInfo)
+            .then(() => {
+                updateRiderInfo(id, "Accepted")
+            })
     }
     const handleReject = (id) => {
         updateRiderInfo(id, "Rejected")
@@ -82,7 +86,6 @@ const ApproveRider = () => {
 
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-5xl mx-10 my-3">
-                    {/* head */}
                     <thead className="bg-gray-500 text-gray-100">
                         <tr>
                             <th>#</th>
@@ -110,7 +113,7 @@ const ApproveRider = () => {
                                             className="btn"><FaEye />
                                         </button>
                                         <button
-                                            onClick={() => handleAccept(rider._id)}
+                                            onClick={() => handleAccept(rider._id, rider.email)}
                                             className="btn">
                                             <FaUserCheck />
                                         </button>

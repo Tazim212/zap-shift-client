@@ -19,6 +19,8 @@ import UserManagement from "../../Pages/DashboardPages/UserManagement";
 import AdminRoute from "../../Components/AdminRoute/AdminRoute";
 import Forbidden from "../../Components/Forbidden/Forbidden";
 import AssignRider from "../../Pages/DashboardPages/AssignRider";
+import RiderRoute from "../../Components/RiderRoute/RIderRoute";
+import AcceptDeliveries from "../../Pages/DashboardPages/AcceptDeliveries";
 
 export const router = createBrowserRouter([
     {
@@ -81,6 +83,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/payment-history",
                 Component: PaymentHistory
+            },
+            {
+                path: "/dashboard/accept-deliveries",
+                element: <RiderRoute><AcceptDeliveries></AcceptDeliveries></RiderRoute>
             },
             {
                 path: "/dashboard/user-management",

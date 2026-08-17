@@ -74,7 +74,13 @@ const MyParcels = () => {
             </Helmet>
 
             <h2>Hello dashboards {allParcels.length}</h2>
-            <h2 className="text-4xl font-bold my-4 mx-12">My Parcels</h2>
+            {
+                role === "admin" ?
+                    <h2 className="text-4xl font-bold my-4 mx-12">All Parcels</h2>
+                    :
+                    <h2 className="text-4xl font-bold my-4 mx-12">My Parcels</h2>
+            }
+
             <div className="overflow-x-auto">
                 <table className="table w-6xl mx-4">
                     <thead>
@@ -103,6 +109,11 @@ const MyParcels = () => {
                                         <td>{parcel.costs}</td>
                                         <td>{parcel.trackingId}</td>
                                         <td className="text-amber-600">{parcel.deliveryStatus}</td>
+                                        <td>
+                                            {
+                                                parcel.paymentStatus === "paid" && <span className="text-md text-green-800 font-semibold">paid</span>
+                                            }
+                                        </td>
                                         <td className="space-x-2">
                                             <Link className="btn btn-soft btn-success">Edit</Link>
                                             <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-soft btn-error">Delete</button>
