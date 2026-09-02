@@ -1,5 +1,4 @@
 import { Navigate, useNavigate } from "react-router"
-import useAuth from "../../hooks/useAuth"
 import useRole from "../../hooks/useRole"
 
 const AdminRoute = ({ children }) => {

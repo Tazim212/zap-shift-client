@@ -18,7 +18,6 @@ const UserManagement = () => {
 
     const handleMakeAdmin = (user) => {
         const roleInfo = { role: "admin" };
-
         axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
@@ -68,7 +67,6 @@ const UserManagement = () => {
 
             <div className="overflow-x-auto">
                 <table className="table w-5xl mx-8">
-                    {/* head */}
                     <thead className="bg-gray-500 text-white">
                         <tr>
                             <th>#</th>

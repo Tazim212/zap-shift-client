@@ -105,10 +105,12 @@ const AcceptDeliveries = () => {
                                         parcel.deliveryStatus === "delivered" ?
                                             <td className="font-semibold">Delivered</td>
                                             :
-                                            <td>
-                                                <button onClick={() => handlePickedup(parcel)} className="btn btn-accent">Mark as picked up</button>
-                                                <button onClick={() => handleDelivered(parcel)} className="btn btn-info ms-3">Mark as delivered</button>
-                                            </td>
+                                            <>
+                                                <td>
+                                                    <button onClick={() => handlePickedup(parcel)} className="btn btn-accent">Mark as picked up</button>
+                                                    <button onClick={() => handleDelivered(parcel)} className="btn btn-info ms-3">Mark as delivered</button>
+                                                </td>
+                                            </>
                                     }
                                 </tr>
                             )}

@@ -21,6 +21,7 @@ import Forbidden from "../../Components/Forbidden/Forbidden";
 import AssignRider from "../../Pages/DashboardPages/AssignRider";
 import RiderRoute from "../../Components/RiderRoute/RIderRoute";
 import AcceptDeliveries from "../../Pages/DashboardPages/AcceptDeliveries";
+import CompletedDeliveries from "../../Pages/DashboardPages/CompletedDeliveries";
 
 export const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/accept-deliveries",
                 element: <RiderRoute><AcceptDeliveries></AcceptDeliveries></RiderRoute>
+            },
+            {
+                path: "/dashboard/completed-deliveries",
+                element: <RiderRoute><CompletedDeliveries></CompletedDeliveries></RiderRoute>
             },
             {
                 path: "/dashboard/user-management",

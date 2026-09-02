@@ -106,7 +106,9 @@ const ApproveRider = () => {
                                     <td>{rider.email}</td>
                                     <td>{rider.district}</td>
                                     <td>{rider.workStatus}</td>
-                                    <td className={`${rider.status === "Accepted" ? "text-green-500" : "text-red-600"}`}>{rider.status}</td>
+                                    <td 
+                                    className={`${rider.status === "Accepted" ? "text-green-500" : "text-red-600"}`}>{rider.status}
+                                    </td>
                                     <td className="space-x-2">
                                         <button
                                             onClick={() => riderModal(rider)}

@@ -57,13 +57,18 @@ const MyParcels = () => {
             if (result.isConfirmed)
                 axiosSecure.delete(`/myparcels/${id}`)
                     .then(res => {
-                        refetch()
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your parcel has been deleted.",
-                            icon: "success"
-                        });
+                        if (res.data.deletedCount > 0) {
+                            refetch()    
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your parcel has been deleted.",
+                                icon: "success"
+                            });
+                            
+                        }
+
                     })
+            
         });
     }
 

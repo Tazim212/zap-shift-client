@@ -1,10 +1,11 @@
 import { Link, NavLink } from "react-router";
 import Logo from "../../Components/Logo/Logo";
 import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
     const { user, signOutUser } = useAuth()
-
+    const { role } = useRole()
     const links = <>
         <li><NavLink>Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
@@ -54,7 +55,13 @@ const Navbar = () => {
             <div className="navbar-end">
                 {
                     user ?
-                        <img src={user?.photoURL} title={user?.email} className="h-12 w-12 rounded-full mr-3" alt="" />
+                        <img
+                            src={user?.photoURL}
+                            title={`User-Role: ${role} \nEmail: ${user?.email}`
+                            }
+                            className="h-12 w-12 rounded-full mr-3"
+                            alt=""
+                        />
                         :
                         ""
                 }
