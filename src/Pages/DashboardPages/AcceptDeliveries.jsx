@@ -9,15 +9,16 @@ const AcceptDeliveries = () => {
     const axiosSecure = useAxiosSecure()
 
     const { data: parcels = [], refetch } = useQuery({
-        queryKey: ['parcels', user?.email, 'in_deliver'],
+        queryKey: ['parcels', user?.email, 'rider_assigned'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`parcels/rider?riderEmail=${user?.email}&&deliveryStatus=in_deliver`)
+            const res = await axiosSecure.get(`parcels/rider?riderEmail=${user?.email}&&deliveryStatus=rider_assigned`)
             return res.data
         }
     })
 
     const handleAccept = parcel => {
-        const statusInfo = { deliveryStatus: 'accepted' };
+        const trackingId = parcel.trackingId;
+        const statusInfo = { deliveryStatus: 'accepted', trackingId };
         axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
@@ -33,8 +34,10 @@ const AcceptDeliveries = () => {
             })
     }
 
+
     const handlePickedup = parcel => {
-        const statusInfo = { deliveryStatus: 'picked_up' };
+        const trackingId = parcel.trackingId;
+        const statusInfo = { deliveryStatus: 'picked_up', trackingId };
         axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
@@ -51,7 +54,8 @@ const AcceptDeliveries = () => {
     }
 
     const handleDelivered = parcel => {
-        const statusInfo = { deliveryStatus: 'delivered' };
+        const trackingId = parcel.trackingId;
+        const statusInfo = { deliveryStatus: 'delivered', trackingId };
         axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
@@ -69,7 +73,7 @@ const AcceptDeliveries = () => {
 
     return (
         <div>
-            <h2 className="text-4xl">Assign - {parcels.length}</h2>
+            <h2 className="text-2xl font-bold text-center py-2">Assign to {user?.displayName}</h2>
 
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-5xl mx-auto my-3">
@@ -90,7 +94,7 @@ const AcceptDeliveries = () => {
                                     <td>{parcel.parcelName}</td>
                                     <td>{parcel.senderName}</td>
                                     {
-                                        parcel.deliveryStatus === "in_deliver"
+                                        parcel.deliveryStatus === "rider_assigned"
                                             ?
                                             <>
                                                 <td>

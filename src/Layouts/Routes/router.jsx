@@ -22,6 +22,7 @@ import AssignRider from "../../Pages/DashboardPages/AssignRider";
 import RiderRoute from "../../Components/RiderRoute/RIderRoute";
 import AcceptDeliveries from "../../Pages/DashboardPages/AcceptDeliveries";
 import CompletedDeliveries from "../../Pages/DashboardPages/CompletedDeliveries";
+import ParcelLogs from "../../Pages/DashboardPages/ParcelLogs";
 
 export const router = createBrowserRouter([
     {
@@ -43,7 +44,11 @@ export const router = createBrowserRouter([
             {
                 path: "/rider",
                 element: <PrivateRoute><Rider></Rider></PrivateRoute>
-            }
+            },
+            {
+                path: "/parcel-logs/:trackingId",
+                Component: ParcelLogs
+            },
         ]
     },
     {

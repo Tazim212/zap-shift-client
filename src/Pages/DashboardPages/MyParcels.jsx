@@ -58,17 +58,17 @@ const MyParcels = () => {
                 axiosSecure.delete(`/myparcels/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
-                            refetch()    
+                            refetch()
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your parcel has been deleted.",
                                 icon: "success"
                             });
-                            
+
                         }
 
                     })
-            
+
         });
     }
 
@@ -112,7 +112,9 @@ const MyParcels = () => {
                                         <td>{parcel.parcelWeight}</td>
                                         <td>{parcel.createdAt}</td>
                                         <td>{parcel.costs}</td>
-                                        <td>{parcel.trackingId}</td>
+                                        <td>
+                                            <Link to={`/parcel-logs/${parcel.trackingId}`} className="cursor-pointer">{parcel.trackingId}</Link>
+                                        </td>
                                         <td className="text-amber-600">{parcel.deliveryStatus}</td>
                                         <td>
                                             {
@@ -132,7 +134,9 @@ const MyParcels = () => {
                                         <td>{parcel.parcelWeight}</td>
                                         <td>{parcel.createdAt}</td>
                                         <td>{parcel.costs}</td>
-                                        <td>{parcel.trackingId}</td>
+                                        <td>
+                                            <Link to={`/parcel-logs/${parcel.trackingId}`} className="cursor-pointer">{parcel.trackingId}</Link>
+                                        </td>
                                         <td className="text-amber-600">{parcel.deliveryStatus}</td>
                                         <td>
                                             {

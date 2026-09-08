@@ -13,7 +13,7 @@ const AssignRider = () => {
     const { data: parcels = [], refetch } = useQuery({
         queryKey: ['parcels', "pending-pickup"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/myparcels?deliveryStatus=pending-pickup")
+            const res = await axiosSecure.get("/myparcels?deliveryStatus=parcel_paid")
             return res.data;
         }
     })
@@ -37,7 +37,8 @@ const AssignRider = () => {
             riderId: rider._id,
             riderName: rider.name,
             riderEmail: rider.email,
-            parcelId: selectedParcel._id
+            parcelId: selectedParcel._id,
+            trackingId: selectedParcel.trackingId
         }
 
         axiosSecure.patch(`/parcel/${selectedParcel._id}`, riderInfo)
@@ -82,7 +83,7 @@ const AssignRider = () => {
                                     <td>{parcel.senderDistrict}</td>
                                     <td>{parcel.deliveryStatus}</td>
                                     <td>
-                                        <button onClick={() => riderModal(parcel)} className="btn btn-primary">FInd Riders</button>
+                                        <button onClick={() => riderModal(parcel)} className="btn btn-primary">Find Riders</button>
                                     </td>
                                 </tr>
                             )
