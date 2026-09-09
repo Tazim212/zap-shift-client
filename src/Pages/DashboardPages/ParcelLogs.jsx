@@ -15,7 +15,7 @@ const ParcelLogs = () => {
     })
     return (
         <div className="py-4">
-            <h1 className="text-center text-3xl font-bold py-2">Parcels Status</h1>
+            <h1 className="text-center text-3xl font-bold py-2">Parcel Tracking Status</h1>
             <ul className="timeline timeline-vertical">
                 {
                     isLoading ? 

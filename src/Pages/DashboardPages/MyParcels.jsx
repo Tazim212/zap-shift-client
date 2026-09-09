@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Link, useParams } from "react-router";
@@ -11,8 +11,9 @@ const MyParcels = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const { role } = useRole()
+    const queryClient = useQueryClient()
 
-    const { data: parcels = [], refetch } = useQuery({
+    const { data: parcels = [] } = useQuery({
         queryKey: ["myparcels", user?.email],
         enabled: role !== 'admin',
         queryFn: async () => {
@@ -35,12 +36,12 @@ const MyParcels = () => {
             parcelId: parcel._id,
             costs: parcel.costs,
             parcelName: parcel.parcelName,
-            senderEmail: parcel.senderEmail
+            senderEmail: parcel.senderEmail,
+            trackingId: parcel.trackingId
         }
         const res = await axiosSecure.post('/create-checkout-session', info)
         // console.log(res.data)
         window.location.assign(res.data.url)
-        // console.log(info)
     }
 
     const handleParcelDelete = id => {
@@ -58,7 +59,17 @@ const MyParcels = () => {
                 axiosSecure.delete(`/myparcels/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
-                            refetch()
+                            if (role === "admin") {
+                                queryClient.invalidateQueries({
+                                    queryKey: ["parcels", role]
+                                })
+                            }
+                            else {
+                                queryClient.invalidateQueries({
+                                    queryKey: ["myparcels", user?.email],
+                                })
+                            }
+
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your parcel has been deleted.",

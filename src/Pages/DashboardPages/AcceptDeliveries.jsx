@@ -18,7 +18,7 @@ const AcceptDeliveries = () => {
 
     const handleAccept = parcel => {
         const trackingId = parcel.trackingId;
-        const statusInfo = { deliveryStatus: 'accepted', trackingId };
+        const statusInfo = { deliveryStatus: 'rider_arriving', trackingId };
         axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
@@ -73,7 +73,7 @@ const AcceptDeliveries = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold text-center py-2">Assign to {user?.displayName}</h2>
+            <h2 className="text-2xl text-center py-2">Assign to- <span className="text-amber-600 font-bold">{user?.displayName}</span></h2>
 
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-5xl mx-auto my-3">
@@ -110,8 +110,13 @@ const AcceptDeliveries = () => {
                                             <td className="font-semibold">Delivered</td>
                                             :
                                             <>
-                                                <td>
-                                                    <button onClick={() => handlePickedup(parcel)} className="btn btn-accent">Mark as picked up</button>
+                                                <td className="pt-4">
+                                                    {
+                                                        parcel.deliveryStatus === "picked_up" ?
+                                                            <span className="font-semibold">Parcel Picked Up</span>
+                                                            :
+                                                            <button onClick={() => handlePickedup(parcel)} className="btn btn-accent">Mark as picked up</button>
+                                                    }
                                                     <button onClick={() => handleDelivered(parcel)} className="btn btn-info ms-3">Mark as delivered</button>
                                                 </td>
                                             </>
