@@ -112,16 +112,16 @@ const ApproveRider = () => {
                                     <td className="space-x-2">
                                         <button
                                             onClick={() => riderModal(rider)}
-                                            className="btn"><FaEye />
+                                            className="btn" title="View"><FaEye />
                                         </button>
                                         <button
                                             onClick={() => handleAccept(rider._id, rider.email)}
-                                            className="btn">
+                                            className="btn" title="Accept Rider">
                                             <FaUserCheck />
                                         </button>
                                         <button
                                             onClick={() => handleReject(rider._id)}
-                                            className="btn">
+                                            className="btn" title="Reject Rider">
                                             <IoPersonRemove />
                                         </button>
                                         <button
