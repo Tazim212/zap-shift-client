@@ -45,8 +45,12 @@ const ApproveRider = () => {
                 updateRiderInfo(id, "Accepted")
             })
     }
-    const handleReject = (id) => {
-        updateRiderInfo(id, "Rejected")
+    const handleReject = (id, email) => {
+        const roleInfo = { role: "user" }
+        axiosSecure.patch(`/users/${email}/role`, roleInfo)
+            .then(() => {
+                updateRiderInfo(id, "Rejected")
+            })
     }
 
     const handleRiderDelet = id => {
@@ -115,12 +119,12 @@ const ApproveRider = () => {
                                             className="btn" title="View"><FaEye />
                                         </button>
                                         <button
-                                            onClick={() => handleAccept(rider._id, rider.email)}
+                                            onClick={() => handleAccept(rider._id, rider?.email)}
                                             className="btn" title="Accept Rider">
                                             <FaUserCheck />
                                         </button>
                                         <button
-                                            onClick={() => handleReject(rider._id)}
+                                            onClick={() => handleReject(rider._id, rider?.email)}
                                             className="btn" title="Reject Rider">
                                             <IoPersonRemove />
                                         </button>

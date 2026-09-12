@@ -20,53 +20,57 @@ const Register = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const handleREgister = (data) => {
+    const handleREgister = async (data) => {
         const profileImg = data.photo[0];
 
-        registerUser(data.email, data.password)
-            .then(() => {
-                const formData = new FormData()
-                formData.append("image", profileImg)
+        try {
+            // 1. Firebase-এ user create
+            await registerUser(data.email, data.password);
 
-                const image_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
+            // 2. Image imgbb-তে upload
+            const formData = new FormData();
+            formData.append("image", profileImg);
+            const image_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
 
-                axios.post(image_api_url, formData)
-                    .then(res => {
-                        const userInfo = {
-                            name: data.name,
-                            email: data.email,
-                            image: res.data.data.url,
-                        }
-                        axiosSecure.post('/users', userInfo)
-                            .then((res) => {
-                                if (res.data.insertedId) {
-                                    Swal.fire({
-                                        position: "top-end",
-                                        icon: "success",
-                                        title: "User has registered",
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    navigate(location?.state || "/")
-                                }
-                            })
+            const imgRes = await axios.post(image_api_url, formData);
+            const imageUrl = imgRes.data.data.url;
 
-                        const userProfile = {
-                            displayName: data.name,
-                            photoURL: res.data.data.url
-                        }
+            // 3. Firebase profile update
+            await updateUserProf({
+                displayName: data.name,
+                photoURL: imageUrl
+            });
 
-                        updateUserProf(userProfile)
-                            .then(() => { })
-                            .catch(err => {
-                                console.log(err)
-                            })
-                    })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
+            // 4. DB-তে user save
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                image: imageUrl,
+            };
+            const res = await axiosSecure.post('/users', userInfo);
+
+            if (res.data.insertedId) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User registered Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+
+            navigate(location?.state || "/");
+
+        } catch (err) {
+            console.error("Register error:", err);
+            console.error("Error response:", err?.response?.data); // আসল কারণ এখানেই পাবেন
+            Swal.fire({
+                icon: "error",
+                title: "Something went wrong",
+                text: err?.message || "Registration failed"
+            });
+        }
+    };
 
     const googleSigned = () => {
         handleGoogleSigned()
@@ -77,7 +81,7 @@ const Register = () => {
                     email: res.user.email,
                     image: res.user.photoURL
                 }
-                axiosSecure.post("/users",userInfo)
+                axiosSecure.post("/users", userInfo)
                     .then(res => {
                         if (res.data.insertedId) {
                             Swal.fire({

@@ -34,6 +34,7 @@ const Rider = () => {
         axiosSecure.post("/riders", data)
             .then(res => {
                 if (res.data.insertedId) {
+                    reset()
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -110,7 +111,7 @@ const Rider = () => {
 
                         <label className="label">Phone Number</label>
                         <input
-                            type="number"
+                            type="text"
                             minLength={11}
                             maxLength={11}
                             {...register("phoneNumber", { required: true })}
