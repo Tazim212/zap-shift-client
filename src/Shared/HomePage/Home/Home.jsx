@@ -9,37 +9,35 @@ import Services from "../Services/Services";
 import WorksToDo from "../WorksToDo/WorksToDo";
 
 const Home = () => {
-        const topRef = useRef(null);
-        const [showButton, setShowButton] = useState(false);
+    const [showButton, setShowButton] = useState(false);
 
-        useEffect(() => {
-            const handleScroll = () => {
-                if (window.scrollY > 400) {
-                    setShowButton(true);
-                } else {
-                    setShowButton(false);
-                }
-            };
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 400) {
+                setShowButton(true);
+            } else {
+                setShowButton(false);
+            }
+        };
 
-            window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll);
 
-            return () => {
-                window.removeEventListener("scroll", handleScroll);
-            };
-        }, []);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
-        const scrollToTop = () => {
-            topRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
     };
 
     return (
         <div>
             <>
-                <div ref={topRef}></div>
-
                 {showButton && (
                     <button
                         onClick={scrollToTop}
@@ -49,7 +47,7 @@ const Home = () => {
                     </button>
                 )}
             </>
-            
+
             <Banner></Banner>
             <WorksToDo></WorksToDo>
             <Services></Services>
@@ -58,7 +56,7 @@ const Home = () => {
             <Priority></Priority>
             <Reviews></Reviews>
             <FAQ></FAQ>
-            
+
         </div>
     )
 }
