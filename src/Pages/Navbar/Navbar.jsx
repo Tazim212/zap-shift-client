@@ -2,10 +2,14 @@ import { Link, NavLink } from "react-router";
 import Logo from "../../Components/Logo/Logo";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
+import { useRef, useState } from "react";
 
 const Navbar = () => {
     const { user, signOutUser } = useAuth()
     const { role } = useRole()
+    // const [profile, setProfile] = useState({ name: "", role: "" })
+    const userRef = useRef()
+
     const links = <>
         <li><NavLink>Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
@@ -14,11 +18,18 @@ const Navbar = () => {
             user &&
             <>
                 <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-                <li><NavLink to="/rider">Be A Rider</NavLink></li>
+                {
+                    (role === "admin" || role === "user") && <li><NavLink to="/rider">Be A Rider</NavLink></li>
+                }
             </>
         }
         <li><NavLink>Pricing</NavLink></li>
     </>
+
+    // const handleOpenProfile = (name, role) => {
+    //     setProfile({ name, role: role })
+    //     userRef.current.showModal()
+    // }
 
     const signOut = () => {
         signOutUser()
@@ -57,14 +68,16 @@ const Navbar = () => {
                     user ?
                         <img
                             src={user?.photoURL}
+                            onClick={() => handleOpenProfile(user?.displayName, role)}
                             title={`User-Role: ${role} \nEmail: ${user?.email}`
                             }
-                            className="h-12 w-12 rounded-full mr-3"
+                            className="cursor-pointer h-12 w-12 rounded-full mr-3"
                             alt=""
                         />
                         :
                         ""
                 }
+                
                 {
                     user ?
                         <button onClick={signOut} className="btn btn-info">Log Out</button>
@@ -72,6 +85,8 @@ const Navbar = () => {
                         <Link to="/login"><button className="btn btn-info">Log In</button></Link>
                 }
             </div>
+
+
         </div>
     )
 }

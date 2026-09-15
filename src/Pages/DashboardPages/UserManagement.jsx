@@ -18,8 +18,9 @@ const UserManagement = () => {
 
     const handleMakeAdmin = (user) => {
         const roleInfo = { role: "admin" };
-        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
+        axiosSecure.patch(`/users/${user?.email}/role`, roleInfo)
             .then(res => {
+                console.log(res.data)
                 if (res.data.modifiedCount) {
                     refetch()
                     Swal.fire({
@@ -30,6 +31,9 @@ const UserManagement = () => {
                         timer: 1500
                     });
                 }
+            })
+            .catch(err =>{
+                console.log(err)
             })
     }
 
@@ -46,7 +50,7 @@ const UserManagement = () => {
             confirmButtonText: "Yes, remove!"
         }).then((result) => {
             if (result.isConfirmed)
-                axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
+                axiosSecure.patch(`/users/${user?.email}/role`, roleInfo)
                     .then(() => {
                         refetch()
                         Swal.fire({
