@@ -26,15 +26,15 @@ const Coverage = () => {
                 <title>Dashboard | Coverage</title>
             </Helmet>
 
-            <h1 className="text-4xl font-bold text-center">We are available in 64 districts</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-center">We are available in 64 districts</h1>
             <form onSubmit={handleSearch}>
-                <input type="text" placeholder="Type here" name="location" className="input my-4" />
+                <input type="text" placeholder="Type here" name="location" className="input my-4 mx-9 md:mx-0" />
             </form>
 
             <MapContainer
                 center={position} zoom={9}
                 scrollWheelZoom={false}
-                className="border-2 h-100 my-3"
+                className="border-2 h-100 my-3 z-0"
                 ref={mapRef}
             >
                 <TileLayer

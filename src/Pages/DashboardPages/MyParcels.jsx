@@ -92,13 +92,13 @@ const MyParcels = () => {
             <h2>Hello dashboards {allParcels.length}</h2>
             {
                 role === "admin" ?
-                    <h2 className="text-4xl font-bold my-4 mx-12">All Parcels</h2>
+                    <h2 className="text-2xl md:text-4xl font-bold my-4 mx-12 text-center md:text-justify">All Parcels</h2>
                     :
-                    <h2 className="text-4xl font-bold my-4 mx-12">My Parcels</h2>
+                    <h2 className="text-2xl md:text-4xl font-bold my-4 mx-12 text-center md:text-justify">My Parcels</h2>
             }
 
             <div className="overflow-x-auto">
-                <table className="table w-6xl mx-4">
+                <table className="table w-2xl md:w-6xl mx-1 md:mx-4">
                     <thead>
                         <tr className="bg-gray-700 text-gray-100">
                             <th>#</th>
@@ -162,7 +162,8 @@ const MyParcels = () => {
                                             <Link className="btn btn-soft btn-success">Edit</Link>
                                             <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-soft btn-error">Delete</button>
                                         </td>
-                                    </tr>)
+                                    </tr>
+                                )
                         }
 
                     </tbody>

@@ -84,15 +84,15 @@ const SendParcel = () => {
             <Helmet>
                 <title>Send Parcel</title>
             </Helmet>
-            <div className="my-7 space-y-4">
-                <h1 className="text-4xl font-bold">Send A Percel</h1>
+            <div className="my-7 space-y-4 text-center md:text-justify">
+                <h1 className="text-2xl md:text-4xl font-bold">Send A Percel</h1>
                 <p className="text-xl font-semibold">Enter Your Parcel Details</p>
             </div>
 
             {/* documents */}
 
             <form onSubmit={handleSubmit(handleParcel)}>
-                <div className="space-x-5 my-3">
+                <div className="space-x-5 my-3 mx-5 md:mx-0">
                     <label>
                         <input type="radio" className="radio mr-2" {...register("parcelType")} value="document" />
                         Documents
@@ -116,7 +116,7 @@ const SendParcel = () => {
                 </div>
 
 
-                <div className="my-6 grid grid-cols-1 md:grid-cols-2">
+                <div className="my-6 grid grid-cols-1 md:grid-cols-2 mx-5 md:mx-0">
 
                     {/* Sender Details */}
                     <div className="space-y-2">
@@ -165,7 +165,7 @@ const SendParcel = () => {
 
                     {/* Receiver DEtails  */}
                     <div>
-                        <div className="space-y-2">
+                        <div className="space-y-2 mt-3 md:mt-0">
                             <h2 className="text-2xl font-semibold">Receiver Details</h2>
 
                             <div className="flex flex-col">
@@ -210,7 +210,7 @@ const SendParcel = () => {
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Send Parcel" className="btn btn-primary text-black" />
+                <input type="submit" value="Send Parcel" className="btn btn-primary text-black ms-5 md:ms-0" />
             </form>
 
         </div>

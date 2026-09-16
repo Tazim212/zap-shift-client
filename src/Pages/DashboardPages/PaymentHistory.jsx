@@ -21,9 +21,9 @@ const PaymentHistory = () => {
             <Helmet>
                 <title>Dashboard | Payment History</title>
             </Helmet>
-            <h2 className="text-4xl font-bold my-3 px-12">Payment History</h2>
+            <h2 className="text-2xl md:text-4xl text-center md:text-justify font-bold my-3 px-12">Payment History</h2>
             <div className="overflow-x-auto">
-                <table className="table w-5xl mx-10 my-4">
+                <table className="table w-2xl md:w-5xl mx-1 md:mx-10 my-2">
                     {/* head */}
                     <thead>
                         <tr className="bg-gray-600 text-gray-100">

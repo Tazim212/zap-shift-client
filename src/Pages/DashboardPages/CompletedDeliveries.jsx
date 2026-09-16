@@ -28,7 +28,7 @@ const CompletedDeliveries = () =>{
             <h2>Completed Deliveried: {parcels.length}</h2>
 
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-5xl mx-auto my-3">
+                <table className="table table-zebra w-2xl md:w-5xl mx-1 md:mx-auto my-3">
                     <thead className="bg-gray-600 text-white">
                         <tr>
                             <th>#</th>

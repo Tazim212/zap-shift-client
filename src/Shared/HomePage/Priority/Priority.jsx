@@ -8,7 +8,7 @@ const Priority = () =>{
             </div>
 
             <div className="mx-3 md:mx-48 my-6 text-gray-200">
-                <button className="btn btn-primary rounded-full mr-3">Become A Merchant</button>
+                <button className="btn btn-primary rounded-full mb-3 md:mb-0 mr-3">Become A Merchant</button>
                 <button className="btn btn-primary btn-outline rounded-full">Earn With Zapshift Courier</button>
             </div>
         </div>

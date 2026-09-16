@@ -5,7 +5,7 @@ const WorksToDo = () => {
         <div className="mb-12">
             <h1 className="text-3xl py-5 font-bold text-center mb-4 text-secondary">How It Works</h1>
 
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-15 mx-25 md:mx-0">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-15 mx-14 md:mx-0">
 
                 <div className="card bg-gray-300 w-61 shadow-lg rounded-xl">
                     <figure className="px-10 pt-10">

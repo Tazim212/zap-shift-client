@@ -65,7 +65,7 @@ const AssignRider = () => {
             <h2>Parcels are: {parcels.length}</h2>
 
             <div className="overflow-x-auto">
-                <table className="table w-5xl mx-8">
+                <table className="table w-2xl md:w-5xl mx-1 md:mx-8">
                     <thead className="bg-gray-500 text-gray-100">
                         <tr>
                             <th>#</th>

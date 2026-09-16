@@ -4,14 +4,14 @@ import 'react-tabs/style/react-tabs.css';
 
 const AboutUs = () => {
     return (
-        <div className="my-6">
+        <div className="my-4">
             <Helmet>
                 <title>About Us</title>
             </Helmet>
-            <div className="pt-4 pb-8 w-2/3 md:w-1/2 mx-auto md:mx-0">
+            <div className="py-6">
                 <h1 className="text-3xl pb-2 font-bold text-center md:text-left text-gray-700">About Us</h1>
-                <p className="text-justify md:text-left">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.
-                    From personal packages to business shipments — we deliver on time, every time.</p>
+                <p className="text-center">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.<br></br>
+                    From personal packages to business shipments we deliver on time, every time.</p>
             </div>
 
             <Tabs>

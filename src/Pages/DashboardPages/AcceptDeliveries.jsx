@@ -73,10 +73,10 @@ const AcceptDeliveries = () => {
 
     return (
         <div>
-            <h2 className="text-2xl text-center py-2">Assign to- <span className="text-amber-600 font-bold">{user?.displayName}</span></h2>
+            <h2 className="text-xl md:text-2xl text-center py-2">Assign to- <span className="text-amber-600 font-bold">{user?.displayName}</span></h2>
 
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-5xl mx-auto my-3">
+                <table className="table table-zebra w-2xl md:w-5xl mx-1 md:mx-auto my-3">
                     <thead className="bg-gray-600 text-white">
                         <tr>
                             <th>#</th>
@@ -115,9 +115,9 @@ const AcceptDeliveries = () => {
                                                         parcel.deliveryStatus === "picked_up" ?
                                                             <span className="font-semibold">Parcel Picked Up</span>
                                                             :
-                                                            <button onClick={() => handlePickedup(parcel)} className="btn btn-accent">Mark as picked up</button>
+                                                            <button onClick={() => handlePickedup(parcel)} className="btn btn-accent mb-1 md:mb-0">Mark as picked up</button>
                                                     }
-                                                    <button onClick={() => handleDelivered(parcel)} className="btn btn-info ms-3">Mark as delivered</button>
+                                                    <button onClick={() => handleDelivered(parcel)} className="btn btn-info ms-0.5 md:ms-3">Mark as delivered</button>
                                                 </td>
                                             </>
                                     }

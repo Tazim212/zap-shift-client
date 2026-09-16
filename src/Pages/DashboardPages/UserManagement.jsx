@@ -67,10 +67,10 @@ const UserManagement = () => {
             <Helmet>
                 <title>Dashboard | User Management</title>
             </Helmet>
-            <h2 className="3xl">Users Management </h2>
+            <h2 className="text-xl md:text-3xl font-bold text-center py-3">Users Management </h2>
 
             <div className="overflow-x-auto">
-                <table className="table w-5xl mx-8">
+                <table className="table w-2xl md:w-5xl mx-1 md:mx-8">
                     <thead className="bg-gray-500 text-white">
                         <tr>
                             <th>#</th>

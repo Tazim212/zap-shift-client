@@ -14,9 +14,9 @@ const Reviews = () => {
 
     return (
         <div className='my-7'>
-            <div className='py-7 w-2/3 md:w-1/2 mx-auto'>
+            <div className='py-6 mx-auto'>
                 <h1 className='text-3xl font-bold pb-3 text-center'>What Our Customers Saying</h1>
-                <p className='text-center'>Enhance posture, mobility, and well-being effortlessly with Posture Pro.
+                <p className=' text-left px-6 md:px-0 md:text-center'>Enhance posture, mobility, and well-being effortlessly with Posture Pro.<br></br>
                     Achieve proper alignment, reduce pain, and strengthen your body with ease!</p>
             </div>
             <Swiper

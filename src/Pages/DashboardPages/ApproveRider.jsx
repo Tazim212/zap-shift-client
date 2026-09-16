@@ -86,10 +86,10 @@ const ApproveRider = () => {
             <Helmet>
                 <title>Dashboard | Approve Riders</title>
             </Helmet>
-            <h2 className="text-3xl font-semibold text-center">Riders Number: {riders.length}</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-center">Riders Number: {riders.length}</h2>
 
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-5xl mx-10 my-3">
+                <table className="table table-zebra w-3xl md:w-5xl mx-1 md:mx-10 my-3">
                     <thead className="bg-gray-500 text-gray-100">
                         <tr>
                             <th>#</th>

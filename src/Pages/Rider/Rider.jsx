@@ -51,14 +51,14 @@ const Rider = () => {
             <Helmet>
                 <title>Be A Rider</title>
             </Helmet>
-            <div className="w-1/2 mx-5 my-3">
-                <h2 className="text-4xl font-bold">Be A Rider</h2>
-                <p>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.
-                    From personal packages to business shipments — we deliver on time, every time.</p>
+            <div className="my-3">
+                <h2 className="text-2xl md:text-4xl font-bold text-center md:text-left">Be A Rider</h2>
+                <p className="py-1.5 text-center md:text-left">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.<br></br>
+                    From personal packages to business shipments we deliver on time, every time.</p>
             </div>
 
-            <div className="flex justify-between items-start">
-                <form onSubmit={handleSubmit(handleApplication)} className="card-body">
+            <div className="flex flex-col-reverse md:flex-row justify-between items-center md:items-start">
+                <form onSubmit={handleSubmit(handleApplication)} className="card-body w-full">
                     <fieldset className="fieldset">
                         <label className="label">Your Name</label>
                         <input type="text" {...register("name", { required: true })} className="input" placeholder="Enter Your Name" defaultValue={user?.displayName} />
@@ -138,11 +138,11 @@ const Rider = () => {
                         <textarea type="text" {...register("about", { required: true })} className="input" placeholder="Tell us" />
 
 
-                        <button className="btn btn-primary mt-4">Submit</button>
+                        <button className="btn btn-primary mt-4 w-full md:w-1/2">Submit</button>
                     </fieldset>
                 </form>
 
-                <img src={agent} alt="" />
+                <img src={agent} className="w-40 md:w-112.5" alt="" />
             </div>
         </div>
     )
