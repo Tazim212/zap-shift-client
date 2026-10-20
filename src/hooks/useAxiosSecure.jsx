@@ -4,7 +4,8 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router"
 
 const axiosSecure = axios.create({
-    baseURL: "https://zap-shift-server-127k.onrender.com"
+    // baseURL: "https://zap-shift-server-127k.onrender.com"
+    baseURL: "http://localhost:3000"
 })
 
 const useAxiosSecure = () => {

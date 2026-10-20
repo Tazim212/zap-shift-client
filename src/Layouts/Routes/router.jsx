@@ -23,6 +23,7 @@ import RiderRoute from "../../Components/RiderRoute/RIderRoute";
 import AcceptDeliveries from "../../Pages/DashboardPages/AcceptDeliveries";
 import CompletedDeliveries from "../../Pages/DashboardPages/CompletedDeliveries";
 import ParcelLogs from "../../Pages/DashboardPages/ParcelLogs";
+import Dashboard from "../../Pages/DashboardPages/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
+            {
+                path: "/dashboard",
+                Component: Dashboard
+            },
             {
                 path: "/dashboard/myparcels",
                 Component: MyParcels
