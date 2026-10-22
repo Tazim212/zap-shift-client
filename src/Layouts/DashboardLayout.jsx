@@ -48,7 +48,8 @@ const DashboardLayout = () => {
                         {/* rider only routes  */}
 
                         {
-                            role === "rider" && <>
+                            role === "rider" &&
+                            <>
                                 <li>
                                     <Link to="/dashboard/accept-deliveries" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Accept Deliveries">
                                         <span className="text-xl my-1.5 inline-block"><FaTasks></FaTasks></span>
@@ -85,13 +86,17 @@ const DashboardLayout = () => {
                                 </li>
                         }
 
-                        <li>
-                            <Link to="/dashboard/payment-history" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
-                                <span className="text-xl my-1.5 inline-block"><MdWorkHistory /></span>
-                                <span className="is-drawer-close:hidden">Payment History</span>
-                            </Link>
-                        </li>
-
+                        {
+                            role === "user" &&
+                            <>
+                                <li>
+                                    <Link to="/dashboard/payment-history" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
+                                        <span className="text-xl my-1.5 inline-block"><MdWorkHistory /></span>
+                                        <span className="is-drawer-close:hidden">Payment History</span>
+                                    </Link>
+                                </li>
+                            </>
+                        }
                         {
                             role === "admin" && <>
                                 <li>
@@ -110,6 +115,12 @@ const DashboardLayout = () => {
                                     <Link to="/dashboard/assign-rider" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign-rider">
                                         <span className="text-xl my-1.5 inline-block"><RiEBikeFill /></span>
                                         <span className="is-drawer-close:hidden">Assign Rider</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/dashboard/payment-history" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
+                                        <span className="text-xl my-1.5 inline-block"><MdWorkHistory /></span>
+                                        <span className="is-drawer-close:hidden">Payment History</span>
                                     </Link>
                                 </li>
                             </>
