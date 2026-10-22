@@ -6,21 +6,25 @@ import { IoPersonRemove } from "react-icons/io5";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { useRef, useState } from "react";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const ApproveRider = () => {
 
     const axiosSecure = useAxiosSecure()
     const [selectedRider, setSelectedRider] = useState(null)
+    const [page, setPage] = useState(1)
     const riderRef = useRef()
 
-    const { data: riders = [], refetch } = useQuery({
+    const { data: rider = [], refetch } = useQuery({
         queryKey: ["riders"],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/riders`)
+            const res = await axiosSecure.get(`/riders?page=${page}&limit=6`)
             return res.data;
         }
     })
 
+    const riders = rider.result || []
+    const totalPages = rider.totalPages || 1
 
     const updateRiderInfo = (id, status) => {
         axiosSecure.patch(`/riders/${id}?status=${status}`)
@@ -103,15 +107,15 @@ const ApproveRider = () => {
                     </thead>
                     <tbody>
                         {
-                            riders.map((rider, index) =>
+                            riders.map((rider, i) =>
                                 <tr key={rider._id}>
-                                    <th>{index + 1}</th>
+                                    <th>{(page - 1) * 6 + i + 1}</th>
                                     <td>{rider.name}</td>
                                     <td>{rider.email}</td>
                                     <td>{rider.district}</td>
                                     <td>{rider.workStatus}</td>
-                                    <td 
-                                    className={`${rider.status === "Accepted" ? "text-green-500" : "text-red-600"}`}>{rider.status}
+                                    <td
+                                        className={`${rider.status === "Accepted" ? "text-green-500" : "text-red-600"}`}>{rider.status}
                                     </td>
                                     <td className="space-x-2">
                                         <button
@@ -143,6 +147,39 @@ const ApproveRider = () => {
 
                 </table>
 
+                <div className="flex gap-2 justify-center mt-4">
+                    <button onClick={() => setPage(1)} className="btn">
+                        <IoIosArrowBack />
+                    </button>
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setPage((p) => p - 1)}
+                        disabled={page === 1}
+                    >
+                        Prev
+                    </button>
+
+                    {[...Array(totalPages).keys()].map((n) => (
+                        <button
+                            key={n}
+                            className={`btn btn-sm ${page === n + 1 ? "btn-primary" : ""}`}
+                            onClick={() => setPage(n + 1)}
+                        >
+                            {n + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setPage((p) => p + 1)}
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </button>
+                    <button onClick={() => setPage(totalPages)} className="btn">
+                        <IoIosArrowForward />
+                    </button>
+                </div>
 
                 <dialog ref={riderRef} className="modal">
                     <div className="modal-box bg-gray-500 opacity-90">

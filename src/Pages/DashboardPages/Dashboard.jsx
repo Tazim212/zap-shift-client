@@ -20,7 +20,7 @@ const Dashboard = () => {
             return res.data
         }
     })
-    const { data: parcels = [] } = useQuery({
+    const { data: parcel = [] } = useQuery({
         queryKey: ["riderDelivered", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -29,6 +29,8 @@ const Dashboard = () => {
         },
     });
 
+    const parcels = parcel.result || []
+    
     const totalEarning = parcels.reduce((sum, parcel) => {
         const rate = parcel.senderDistrict === parcel.receiverDistrict ? 0.8 : 0.6;
         return sum + parcel.costs * rate;
@@ -39,7 +41,6 @@ const Dashboard = () => {
             axiosSecure.get(`/parcel_admin_state`)
                 .then(res => {
                     SetAdminStat(res.data)
-                    // console.log(res.data)
                 })
         }, [])
     }
