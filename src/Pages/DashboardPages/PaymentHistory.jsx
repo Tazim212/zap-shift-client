@@ -28,7 +28,6 @@ const PaymentHistory = () => {
             .then(res => {
                 setAllPayment(res.data.result)
                 setTotalPages(res.data.totalPages)
-                // console.log(res.data)
             })
     }, [page])
 
@@ -37,7 +36,7 @@ const PaymentHistory = () => {
             <Helmet>
                 <title>Dashboard | Payment History</title>
             </Helmet>
-            <h2 className="text-2xl md:text-4xl text-center md:text-justify font-bold my-3 px-12">Payment History</h2>
+            <h2 className="text-lg md:text-3xl text-center md:text-justify font-bold my-3 px-12">Payment History</h2>
             {
                 role === "user" &&
                 <div className="overflow-x-auto">

@@ -9,7 +9,7 @@ const AboutUs = () => {
                 <title>About Us</title>
             </Helmet>
             <div className="py-6">
-                <h1 className="text-3xl pb-2 font-bold text-center md:text-left text-gray-700">About Us</h1>
+                <h1 className="text-lg md:text-3xl pb-2 font-bold text-center md:text-left text-gray-700">About Us</h1>
                 <p className="text-center">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.<br></br>
                     From personal packages to business shipments we deliver on time, every time.</p>
             </div>

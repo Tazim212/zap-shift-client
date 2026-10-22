@@ -4,17 +4,23 @@ import { FaUserShield } from "react-icons/fa";
 import { IoPersonRemove } from "react-icons/io5";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useState } from "react";
 
 const UserManagement = () => {
     const axiosSecure = useAxiosSecure()
+    const [page, setPage] = useState(1)
 
     const { data: users = [], refetch } = useQuery({
-        queryKey: ["users"],
+        queryKey: ["users", page],
         queryFn: async () => {
-            const res = await axiosSecure.get("/users")
+            const res = await axiosSecure.get(`/users?page=${page}&limit=5`)
             return res.data;
         }
     })
+
+    const allUsers = users.result || []
+    const totalPages = users.totalPages || 1;
 
     const handleMakeAdmin = (user) => {
         const roleInfo = { role: "admin" };
@@ -32,7 +38,7 @@ const UserManagement = () => {
                     });
                 }
             })
-            .catch(err =>{
+            .catch(err => {
                 console.log(err)
             })
     }
@@ -67,7 +73,7 @@ const UserManagement = () => {
             <Helmet>
                 <title>Dashboard | User Management</title>
             </Helmet>
-            <h2 className="text-xl md:text-3xl font-bold text-center py-3">Users Management </h2>
+            <h2 className="text-lg md:text-3xl font-bold text-center py-3">Users Management </h2>
 
             <div className="overflow-x-auto">
                 <table className="table w-2xl md:w-5xl mx-1 md:mx-8">
@@ -82,9 +88,9 @@ const UserManagement = () => {
                     </thead>
                     <tbody>
                         {
-                            users.map((user, i) =>
+                            allUsers.map((user, i) =>
                                 <tr key={user._id}>
-                                    <td>{i + 1}</td>
+                                    <td>{(page - 1) * 5 + i + 1}</td>
                                     <td>
                                         <div className="avatar flex items-center gap-2">
                                             <div className="mask mask-squircle h-12 w-12">
@@ -111,6 +117,40 @@ const UserManagement = () => {
                     </tbody>
 
                 </table>
+
+                <div className="flex gap-2 justify-center mt-4">
+                    <button onClick={() => setPage(1)} className="btn">
+                        <IoIosArrowBack />
+                    </button>
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setPage((p) => p - 1)}
+                        disabled={page === 1}
+                    >
+                        Prev
+                    </button>
+
+                    {[...Array(totalPages).keys()].map((n) => (
+                        <button
+                            key={n}
+                            className={`btn btn-sm ${page === n + 1 ? "btn-primary" : ""}`}
+                            onClick={() => setPage(n + 1)}
+                        >
+                            {n + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setPage((p) => p + 1)}
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </button>
+                    <button onClick={() => setPage(totalPages)} className="btn">
+                        <IoIosArrowForward />
+                    </button>
+                </div>
             </div>
         </div>
     )

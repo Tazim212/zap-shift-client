@@ -8,7 +8,7 @@ const AcceptDeliveries = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
 
-    const { data: parcels = [], refetch } = useQuery({
+    const { data: parcel = [], refetch } = useQuery({
         queryKey: ['parcels', user?.email, 'rider_assigned'],
         queryFn: async () => {
             const res = await axiosSecure.get(`parcels/rider?riderEmail=${user?.email}&&deliveryStatus=rider_assigned`)
@@ -16,6 +16,8 @@ const AcceptDeliveries = () => {
         }
     })
 
+    const parcels = parcel.result || [];
+    
     const handleAccept = parcel => {
         const trackingId = parcel.trackingId;
         const statusInfo = { deliveryStatus: 'rider_arriving', trackingId };
@@ -73,7 +75,7 @@ const AcceptDeliveries = () => {
 
     return (
         <div>
-            <h2 className="text-xl md:text-2xl text-center py-2">Assign to- <span className="text-amber-600 font-bold">{user?.displayName}</span></h2>
+            <h2 className="text-lg md:text-3xl text-center py-2">Assign to- <span className="text-amber-600 font-bold">{user?.displayName}</span></h2>
 
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-2xl md:w-5xl mx-1 md:mx-auto my-3">

@@ -34,13 +34,15 @@ const Dashboard = () => {
         return sum + parcel.costs * rate;
     }, 0);
 
-    useEffect(() => {
-        axiosSecure.get(`/parcel_admin_state`)
-            .then(res => {
-                SetAdminStat(res.data)
-                // console.log(res.data)
-            })
-    }, [])
+    if (role === "admin") {
+        useEffect(() => {
+            axiosSecure.get(`/parcel_admin_state`)
+                .then(res => {
+                    SetAdminStat(res.data)
+                    // console.log(res.data)
+                })
+        }, [])
+    }
 
     useEffect(() => {
         axiosSecure.get(`/parcel_rider_stats/${user?.email}`)
@@ -124,11 +126,11 @@ const Dashboard = () => {
                     <div className="stats stats-vertical lg:stats-horizontal bg-gray-200 shadow mt-6 ms-4">
                         <div className="stat">
                             <div className="stat-title text-xl">Total Delivered</div>
-                           <div className="stat-value">{adminStat.totalDelivered}</div>
-                            
+                            <div className="stat-value">{adminStat.totalDelivered}</div>
+
                         </div>
 
-                        <div className="stat">                     
+                        <div className="stat">
                             <div className="stat-title text-xl">New Parcels Order</div>
                             <div className="stat-value">{adminStat.newParcel}</div>
                         </div>

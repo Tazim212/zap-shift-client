@@ -10,13 +10,14 @@ const AssignRider = () => {
     const riderRef = useRef()
     const [selectedParcel, setSelectedParcel] = useState(null)
 
-    const { data: parcels = [], refetch } = useQuery({
+    const { data: parcel = [], refetch } = useQuery({
         queryKey: ['parcels', "pending-pickup"],
         queryFn: async () => {
             const res = await axiosSecure.get("/myparcels?deliveryStatus=parcel_paid")
             return res.data;
         }
     })
+    const parcels = parcel.result || [];
 
     const { data: riders = [] } = useQuery({
         queryKey: ["riders", selectedParcel?.senderDistrict, "Accepted", "available"],
@@ -62,7 +63,7 @@ const AssignRider = () => {
             <Helmet>
                 <title>Dashboard || Assign Rider</title>
             </Helmet>
-            <h2>Parcels are: {parcels.length}</h2>
+            <h2 className="py-2 text-lg md:text-3xl font-bold text-center">Assing Riders</h2>
 
             <div className="overflow-x-auto">
                 <table className="table w-2xl md:w-5xl mx-1 md:mx-8">
