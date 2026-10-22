@@ -61,39 +61,39 @@ const CompletedDeliveries = () => {
 
                     </tbody>
                 </table>
-                <div className="flex gap-2 justify-center mt-4">
-                    <button onClick={() => setPage(1)} className="btn">
-                        <IoIosArrowBack />
-                    </button>
-                    <button
-                        className="btn btn-sm"
-                        onClick={() => setPage((p) => p - 1)}
-                        disabled={page === 1}
-                    >
-                        Prev
-                    </button>
+            </div>
+            <div className="flex gap-2 justify-center mt-4">
+                <button onClick={() => setPage(1)} className="btn">
+                    <IoIosArrowBack />
+                </button>
+                <button
+                    className="btn btn-sm"
+                    onClick={() => setPage((p) => p - 1)}
+                    disabled={page === 1}
+                >
+                    Prev
+                </button>
 
-                    {[...Array(totalPages).keys()].map((n) => (
-                        <button
-                            key={n}
-                            className={`btn btn-sm ${page === n + 1 ? "btn-primary" : ""}`}
-                            onClick={() => setPage(n + 1)}
-                        >
-                            {n + 1}
-                        </button>
-                    ))}
-
+                {[...Array(totalPages).keys()].map((n) => (
                     <button
-                        className="btn btn-sm"
-                        onClick={() => setPage((p) => p + 1)}
-                        disabled={page === totalPages}
+                        key={n}
+                        className={`btn btn-sm ${page === n + 1 ? "btn-primary" : ""}`}
+                        onClick={() => setPage(n + 1)}
                     >
-                        Next
+                        {n + 1}
                     </button>
-                    <button onClick={() => setPage(totalPages)} className="btn">
-                        <IoIosArrowForward />
-                    </button>
-                </div>
+                ))}
+
+                <button
+                    className="btn btn-sm"
+                    onClick={() => setPage((p) => p + 1)}
+                    disabled={page === totalPages}
+                >
+                    Next
+                </button>
+                <button onClick={() => setPage(totalPages)} className="btn">
+                    <IoIosArrowForward />
+                </button>
             </div>
         </div>
     )
