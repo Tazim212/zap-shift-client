@@ -1,8 +1,20 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import '../../../node_modules/leaflet/dist/leaflet.css'
+// import '../../../node_modules/leaflet/dist/leaflet.css'
 import { useLoaderData } from "react-router";
 import { useRef } from "react";
 import { Helmet } from "react-helmet-async";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: markerIcon2x,
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+});
 
 const Coverage = () => {
     const position = [23.6850, 90.3563]
